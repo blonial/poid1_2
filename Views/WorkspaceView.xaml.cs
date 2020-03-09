@@ -1,4 +1,5 @@
-﻿using System;
+﻿using poid.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,15 +14,19 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace poid.ViewModels
+namespace poid.Views
 {
     /// <summary>
-    /// Interaction logic for MainViewModel.xaml
+    /// Interaction logic for WorkspaceView.xaml
     /// </summary>
-    public partial class MainViewModel : UserControl
+    public partial class WorkspaceView : UserControl
     {
-        public MainViewModel()
+        public readonly int Index;
+
+        public WorkspaceView(int index)
         {
+            this.Index = index;
+            this.DataContext = new WorkspaceViewModel(index);
             InitializeComponent();
         }
     }
