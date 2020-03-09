@@ -10,6 +10,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" HorizontalAlignment="Center">Workspace</Label>
+        <Label Grid.Row="0" HorizontalAlignment="Center" Content="{Binding Index}" ContentStringFormat="Workspace {0}"/>
     </Grid>
 </UserControl>

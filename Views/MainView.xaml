@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:poid.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <Grid x:Name="mainView">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -18,11 +18,19 @@
         <Grid Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Label Grid.Row="0">Workspaces</Label>
             <Grid Grid.Row="1">
-
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding Workspaces}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Height="Auto" Content="{Binding Index}" ContentStringFormat="Workspace {0}" Command="{Binding ElementName=mainView, Path=DataContext._ChangeWorkspace}" CommandParameter="{Binding}"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
             </Grid>
         </Grid>
         <Grid Grid.Row="0" Grid.Column="1">
@@ -34,7 +42,7 @@
             <Button Grid.Column="1" Command="{Binding _RemoveWorkspace}">Remove workspace</Button>
         </Grid>
         <Grid Grid.Row="1" Grid.Column="1">
-            <UserControl Content="{Binding SelectedWorkspace}"/>
+            <UserControl Content="{Binding SelectedWorkspace.View}"/>
         </Grid>
     </Grid>
 </UserControl>

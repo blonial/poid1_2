@@ -21,11 +21,8 @@ namespace poid.Views
     /// </summary>
     public partial class WorkspaceView : UserControl
     {
-        public readonly int Index;
-
         public WorkspaceView(int index)
         {
-            this.Index = index;
             this.DataContext = new WorkspaceViewModel(index);
             InitializeComponent();
         }

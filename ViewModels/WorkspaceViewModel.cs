@@ -12,7 +12,7 @@ namespace poid.ViewModels
     {
         #region Properties
 
-        public readonly int Index;
+        public int Index { get; }
 
         #endregion
 

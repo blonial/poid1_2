@@ -1,4 +1,5 @@
 ﻿using poid.Commands;
+using poid.Models;
 using poid.Views;
 using System;
 using System.Collections;
@@ -19,8 +20,8 @@ namespace poid.ViewModels
     {
         #region Properties
 
-        private WorkspaceView _SelectedWorkspace;
-        public WorkspaceView SelectedWorkspace
+        private Workspace _SelectedWorkspace;
+        public Workspace SelectedWorkspace
         {
             get
             {
@@ -33,8 +34,8 @@ namespace poid.ViewModels
             }
         }
 
-        public ObservableCollection<WorkspaceView> _Workspaces = new ObservableCollection<WorkspaceView>();
-        public ObservableCollection<WorkspaceView> Workspaces
+        public ObservableCollection<Workspace> _Workspaces = new ObservableCollection<Workspace>();
+        public ObservableCollection<Workspace> Workspaces
         {
             get
             {
@@ -74,9 +75,9 @@ namespace poid.ViewModels
 
         private void InitializeCommands()
         {
-            this._AddWorkspace = new RelayCommand(o => true, this.AddWorkspace);
-            this._RemoveWorkspace = new RelayCommand(o => true, this.RemoveWorkspace);
-            this._ChangeWorkspace = new RelayCommand(o => true, this.ChangeWorkspace);
+            this._AddWorkspace = new RelayCommand(this.AddWorkspace);
+            this._RemoveWorkspace = new RelayCommand(this.RemoveWorkspace);
+            this._ChangeWorkspace = new RelayCommand(this.ChangeWorkspace);
         }
 
         private void InitializeDefaultWorkspace()
@@ -100,7 +101,7 @@ namespace poid.ViewModels
 
         private void AddWorkspace(object o)
         {
-            WorkspaceView newWorkspace = new WorkspaceView(this.GetNewWorkspaceIndex());
+            Workspace newWorkspace = new Workspace(this.GetNewWorkspaceIndex());
             this.Workspaces.Add(newWorkspace);
             this.SelectedWorkspace = newWorkspace;
         }
@@ -119,13 +120,29 @@ namespace poid.ViewModels
 
         private void RemoveWorkspace(object o)
         {
-            this.Workspaces.Remove(this.SelectedWorkspace);
-            this.SelectedWorkspace = null;
+            if(this.SelectedWorkspace != null)
+            {
+                int index = this.Workspaces.IndexOf(this.SelectedWorkspace);
+                this.Workspaces.Remove(this.SelectedWorkspace);
+                this.SelectedWorkspace = null;
+                if(this.Workspaces.Count > 0)
+                {
+                    if(this.Workspaces.Count > index)
+                    {
+                        this.SelectedWorkspace = this.Workspaces[index];
+                    } else
+                    {
+                        this.SelectedWorkspace = this.Workspaces[this.Workspaces.Count - 1];
+                    }
+                }
+            }
         }
 
         private void ChangeWorkspace(object o)
         {
-
+            if(o is Workspace) {
+                this.SelectedWorkspace = this.Workspaces[this.Workspaces.IndexOf((Workspace)o)];
+            }
         }
 
         #endregion
