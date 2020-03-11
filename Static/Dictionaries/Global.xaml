@@ -3,4 +3,5 @@
                     xmlns:local="clr-namespace:poid.Static.Dictionaries"
                     xmlns:converters="clr-namespace:poid.Converters">
     <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+    <converters:BitmapToImageSourceConverter x:Key="BitmapToImageSourceConverter"/>
 </ResourceDictionary>

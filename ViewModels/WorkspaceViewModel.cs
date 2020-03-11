@@ -75,6 +75,7 @@ namespace poid.ViewModels
         private void InitializeCommands()
         {
             this._LoadImage = new RelayCommand(this.LoadImage);
+            this._SaveOutput = new RelayCommand(this.SaveOutput);
         }
 
         #endregion
@@ -82,6 +83,8 @@ namespace poid.ViewModels
         #region Commands
 
         public ICommand _LoadImage { get; private set; }
+
+        public ICommand _SaveOutput { get; private set; }
 
         #endregion
 
@@ -96,8 +99,21 @@ namespace poid.ViewModels
 
             if (openFileDialog.ShowDialog() == true)
             {
-                new Bitmap(openFileDialog.FileName);
+                this.Input = new Bitmap(openFileDialog.FileName);
                 this.Output = null;
+            }
+        }
+
+        private void SaveOutput(object o)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Title = "Save BMP File";
+            saveFileDialog.DefaultExt = "bmp";
+            saveFileDialog.Filter = "BMP files (*.bmp)|*.bmp";
+
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                this.Output.Save(saveFileDialog.FileName);
             }
         }
 
