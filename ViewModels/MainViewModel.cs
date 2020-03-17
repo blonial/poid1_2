@@ -16,7 +16,7 @@ using System.Windows.Input;
 
 namespace poid.ViewModels
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel : NotifyPropertyChangedEvent
     {
         #region Properties
 
@@ -46,17 +46,6 @@ namespace poid.ViewModels
                 _Workspaces = value;
                 NotifyPropertyChanged("Workspaces");
             }
-        }
-
-        #endregion
-
-        #region INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #endregion

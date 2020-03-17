@@ -64,6 +64,7 @@
     </ApplicationDefinition>
     <Compile Include="Converters\BitmapToImageSourceConverter.cs" />
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
+    <Compile Include="Models\NotifyPropertyChangedEvent.cs" />
     <Compile Include="Models\Workspace.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\WorkspaceViewModel.cs" />
