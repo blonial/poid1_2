@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using poid.Commands;
 using poid.Models;
+using poid.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,6 +20,8 @@ namespace poid.ViewModels
         #region Properties
 
         public int Index { get; }
+
+        public ToolbarView ToolbarView { get; }
 
         private Bitmap _Input;
         public Bitmap Input
@@ -83,6 +86,7 @@ namespace poid.ViewModels
         public WorkspaceViewModel(int index)
         {
             this.Index = index;
+            this.ToolbarView = new ToolbarView(this);
             this.InitializeCommands();
             this.InitializeEventListeners();
         }
