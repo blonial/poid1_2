@@ -43,7 +43,7 @@ namespace poid.ViewModels.Operations
             try
             {
                 double a = double.Parse(this.A);
-                if (a > 255 || a < 0)
+                if (a > 127 || a < 0)
                 {
                     throw new ArgumentException("Invalid input range!");
                 }
@@ -64,7 +64,7 @@ namespace poid.ViewModels.Operations
             }
             catch (Exception)
             {
-                Notify.Error("Invalid input value!\nValue must be an float between 0 and 255.");
+                Notify.Error("Invalid input value!\nValue must be an float between 0 and 127.");
             }
         }
 
