@@ -61,10 +61,12 @@ namespace poid.ViewModels.Operations
         private void ProcessImageDecorator(object sender)
         {
             this.Working = true;
-            Task processImageTask = new Task(new Action(() => this.ProcessImage(sender)));
+            Task processImageTask = new Task(new Action(() => {
+                this.ProcessImage(sender);
+                this.Working = false;
+            }));
             processImageTask.Start();
             processImageTask.Wait();
-            this.Working = false;
         }
 
         protected abstract void ProcessImage(object sender);

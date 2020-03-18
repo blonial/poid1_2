@@ -49,17 +49,10 @@ namespace poid.ViewModels
             this.Operations.Add(new BrightnessChangeOperation(workspaceViewModel));
             this.Operations.Add(new NegativeOperation(workspaceViewModel));
             this.Operations.Add(new ContrastChangeOperation(workspaceViewModel));
+            this.Operations.Add(new BarchartOperation(workspaceViewModel));
 
             this.SelectedOperation = this.Operations[0];
         }
-
-        #endregion
-
-        #region Commands
-
-        #endregion
-
-        #region Methods
 
         #endregion
     }

@@ -35,6 +35,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="Mvvm, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Mvvm.1.0.4\lib\Mvvm.dll</HintPath>
     </Reference>
@@ -68,6 +74,7 @@
     <Compile Include="Converters\BitmapToImageSourceConverter.cs" />
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Models\Notify.cs" />
+    <Compile Include="Models\Operations\BarchartOperation.cs" />
     <Compile Include="Models\Operations\BrightnessChangeOperation.cs" />
     <Compile Include="Models\Operations\ContrastChangeOperation.cs" />
     <Compile Include="Models\Operations\NegativeOperation.cs" />
@@ -76,15 +83,23 @@
     <Compile Include="Models\Interfaces\IOperation.cs" />
     <Compile Include="Models\RegexHelpers.cs" />
     <Compile Include="Models\Workspace.cs" />
+    <Compile Include="ViewModels\BarchartViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\Operations\BarchartOperationViewModel.cs" />
     <Compile Include="ViewModels\Operations\BrightnessChangeOperationViewModel.cs" />
     <Compile Include="ViewModels\Operations\ContrastChangeOperationViewModel.cs" />
     <Compile Include="ViewModels\Operations\NegativeOperationViewModel.cs" />
     <Compile Include="ViewModels\Operations\OperationViewModel.cs" />
     <Compile Include="ViewModels\ToolbarViewModel.cs" />
     <Compile Include="ViewModels\WorkspaceViewModel.cs" />
+    <Compile Include="Views\BarchartView.xaml.cs">
+      <DependentUpon>BarchartView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Operations\BarchartOperationView.xaml.cs">
+      <DependentUpon>BarchartOperationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Operations\BrightnessChangeOperationView.xaml.cs">
       <DependentUpon>BrightnessChangeOperationView.xaml</DependentUpon>
@@ -122,7 +137,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\BarchartView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Operations\BarchartOperationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
