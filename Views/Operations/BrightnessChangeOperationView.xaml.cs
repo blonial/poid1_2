@@ -24,10 +24,12 @@ namespace poid.Views.Operations
     /// </summary>
     public partial class BrightnessChangeOperationView : UserControl
     {
+        public OperationViewModel OperationViewModel { get; }
 
         public BrightnessChangeOperationView(WorkspaceViewModel workspaceViewModel)
         {
-            this.DataContext = new BrightnessChangeOperationViewModel(workspaceViewModel);
+            this.OperationViewModel = new BrightnessChangeOperationViewModel(workspaceViewModel);
+            this.DataContext = this.OperationViewModel;
             InitializeComponent();
         }
     }

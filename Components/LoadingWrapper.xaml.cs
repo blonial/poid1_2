@@ -1,5 +1,4 @@
-﻿using poid.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,19 +13,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace poid.Views
+namespace poid.Components
 {
     /// <summary>
-    /// Logika interakcji dla klasy ToolbarView.xaml
+    /// Logika interakcji dla klasy LoadingWrapper.xaml
     /// </summary>
-    public partial class ToolbarView : UserControl
+    public partial class LoadingWrapper : UserControl
     {
-        public ToolbarViewModel ToolbarViewModel { get; }
-
-        public ToolbarView(WorkspaceViewModel workspaceViewModel)
+        public LoadingWrapper()
         {
-            this.ToolbarViewModel = new ToolbarViewModel(workspaceViewModel);
-            this.DataContext = this.ToolbarViewModel;
             InitializeComponent();
         }
     }

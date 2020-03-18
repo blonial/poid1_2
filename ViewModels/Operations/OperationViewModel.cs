@@ -15,6 +15,20 @@ namespace poid.ViewModels.Operations
 
         protected WorkspaceViewModel WorkspaceViewModel { get; }
 
+        private bool _Working = false;
+        public bool Working
+        {
+            get
+            {
+                return _Working;
+            }
+            private set
+            {
+                _Working = value;
+                NotifyPropertyChanged("Working");
+            }
+        }
+
         #endregion
 
         #region Constructors
@@ -31,7 +45,7 @@ namespace poid.ViewModels.Operations
 
         private void InitializeCommands()
         {
-            this._ProcessImage = new RelayCommand(o => this.WorkspaceViewModel.Input != null, this.ProcessImage);
+            this._ProcessImage = new RelayCommand(o => this.WorkspaceViewModel.Input != null, this.ProcessImageDecorator);
         }
 
         #endregion
@@ -43,6 +57,15 @@ namespace poid.ViewModels.Operations
         #endregion
 
         #region Methods
+
+        private void ProcessImageDecorator(object sender)
+        {
+            this.Working = true;
+            Task processImageTask = new Task(new Action(() => this.ProcessImage(sender)));
+            processImageTask.Start();
+            processImageTask.Wait();
+            this.Working = false;
+        }
 
         protected abstract void ProcessImage(object sender);
 

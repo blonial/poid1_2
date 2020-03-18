@@ -4,4 +4,5 @@
                     xmlns:converters="clr-namespace:poid.Converters">
     <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
     <converters:BitmapToImageSourceConverter x:Key="BitmapToImageSourceConverter"/>
+    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 </ResourceDictionary>

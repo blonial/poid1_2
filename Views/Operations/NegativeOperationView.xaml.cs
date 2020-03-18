@@ -22,9 +22,12 @@ namespace poid.Views.Operations
     /// </summary>
     public partial class NegativeOperationView : UserControl
     {
+        public OperationViewModel OperationViewModel { get; }
+
         public NegativeOperationView(WorkspaceViewModel workspaceViewModel)
         {
-            this.DataContext = new NegativeOperationViewModel(workspaceViewModel);
+            this.OperationViewModel = new NegativeOperationViewModel(workspaceViewModel);
+            this.DataContext = this.OperationViewModel;
             InitializeComponent();
         }
     }
