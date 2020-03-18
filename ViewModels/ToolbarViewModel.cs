@@ -47,6 +47,7 @@ namespace poid.ViewModels
         private void InitializeOperations(WorkspaceViewModel workspaceViewModel)
         {
             this.Operations.Add(new BrightnessChangeOperation(workspaceViewModel));
+            this.Operations.Add(new NegativeOperation(workspaceViewModel));
         }
 
         #endregion
