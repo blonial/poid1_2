@@ -69,6 +69,7 @@
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Models\Notify.cs" />
     <Compile Include="Models\Operations\BrightnessChangeOperation.cs" />
+    <Compile Include="Models\Operations\ContrastChangeOperation.cs" />
     <Compile Include="Models\Operations\NegativeOperation.cs" />
     <Compile Include="Models\Operations\Operation.cs" />
     <Compile Include="Models\NotifyPropertyChangedEvent.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Models\Workspace.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\Operations\BrightnessChangeOperationViewModel.cs" />
+    <Compile Include="ViewModels\Operations\ContrastChangeOperationViewModel.cs" />
     <Compile Include="ViewModels\Operations\NegativeOperationViewModel.cs" />
     <Compile Include="ViewModels\Operations\OperationViewModel.cs" />
     <Compile Include="ViewModels\ToolbarViewModel.cs" />
@@ -86,6 +88,9 @@
     </Compile>
     <Compile Include="Views\Operations\BrightnessChangeOperationView.xaml.cs">
       <DependentUpon>BrightnessChangeOperationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Operations\ContrastChangeOperationView.xaml.cs">
+      <DependentUpon>ContrastChangeOperationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Operations\NegativeOperationView.xaml.cs">
       <DependentUpon>NegativeOperationView.xaml</DependentUpon>
@@ -122,6 +127,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Operations\BrightnessChangeOperationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Operations\ContrastChangeOperationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

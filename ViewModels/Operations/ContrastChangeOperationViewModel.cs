@@ -1,31 +1,28 @@
-﻿using poid.Commands;
-using poid.Models;
+﻿using poid.Models;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace poid.ViewModels.Operations
 {
-    public class BrightnessChangeOperationViewModel : OperationViewModel
+    public class ContrastChangeOperationViewModel : OperationViewModel
     {
         #region Properties
 
-        private string _Value;
-        public string Value
+        private string _A;
+        public string A
         {
             get
             {
-                return _Value;
+                return _A;
             }
             set
             {
-                _Value = value;
-                NotifyPropertyChanged("Value");
+                _A = value;
+                NotifyPropertyChanged("A");
             }
         }
 
@@ -33,7 +30,7 @@ namespace poid.ViewModels.Operations
 
         #region Constructors
 
-        public BrightnessChangeOperationViewModel(WorkspaceViewModel workspaceViewModel) : base(workspaceViewModel)
+        public ContrastChangeOperationViewModel(WorkspaceViewModel workspaceViewModel) : base(workspaceViewModel)
         {
         }
 
@@ -45,8 +42,8 @@ namespace poid.ViewModels.Operations
         {
             try
             {
-                int value = int.Parse(this.Value);
-                if (value > 255 || value < -255)
+                double a = double.Parse(this.A);
+                if (a > 255 || a < 0)
                 {
                     throw new ArgumentException("Invalid input range!");
                 }
@@ -57,9 +54,9 @@ namespace poid.ViewModels.Operations
                     for (int j = 0; j < output.Height; j++)
                     {
                         Color pixel = output.GetPixel(i, j);
-                        int r = CalculateNewPixelValue(pixel.R, value);
-                        int g = CalculateNewPixelValue(pixel.G, value);
-                        int b = CalculateNewPixelValue(pixel.B, value);
+                        int r = CalculateNewPixelValue(pixel.R, a);
+                        int g = CalculateNewPixelValue(pixel.G, a);
+                        int b = CalculateNewPixelValue(pixel.B, a);
                         output.SetPixel(i, j, Color.FromArgb(r, g, b));
                     }
                 }
@@ -67,13 +64,13 @@ namespace poid.ViewModels.Operations
             }
             catch (Exception)
             {
-                Notify.Error("Invalid input value!\nValue must be an int between -255 and 255.");
+                Notify.Error("Invalid input value!\nValue must be an float between 0 and 255.");
             }
         }
 
-        private int CalculateNewPixelValue(int pixelValue, int value)
+        private int CalculateNewPixelValue(int pixelValue, double a)
         {
-            int newValue = pixelValue + value;
+            int newValue = Convert.ToInt32((a * (pixelValue - (255 / 2))) + (255 / 2));
             if (newValue > 255)
             {
                 return 255;
