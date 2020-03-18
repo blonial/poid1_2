@@ -68,8 +68,8 @@
 					<Label Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="16,0" FontSize="14">Output</Label>
 					<Button Grid.Row="0" Grid.Column="1" Command="{Binding _ScaleOutput_0_5}">x0.5</Button>
 					<Button Grid.Row="0" Grid.Column="2" Command="{Binding _ScaleOutput_1_0}">1.0</Button>
-					<Button Grid.Row="0" Grid.Column="3" Command="{Binding _ScaleOutput_2_0}">x2.0</Button>
-					<Image Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Source="{Binding Output, Converter={StaticResource BitmapToImageSourceConverter}}" HorizontalAlignment="Left" Width="{Binding Output.Width}" Height="{Binding Output.Height}"/>
+                    <Button Grid.Row="0" Grid.Column="3" Command="{Binding _ScaleOutput_2_0}">x2.0</Button>
+					<Image Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Source="{Binding Output, Converter={StaticResource BitmapToImageSourceConverter}}" HorizontalAlignment="Left" Width="{Binding OutputSize.Width}" Height="{Binding OutputSize.Height}"/>
 				</Grid>
 			</Grid>
 		</ScrollViewer>

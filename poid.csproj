@@ -64,6 +64,7 @@
     </ApplicationDefinition>
     <Compile Include="Converters\BitmapToImageSourceConverter.cs" />
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
+    <Compile Include="Models\Notify.cs" />
     <Compile Include="Models\Operations\BrightnessChangeOperation.cs" />
     <Compile Include="Models\Operations\Operation.cs" />
     <Compile Include="Models\NotifyPropertyChangedEvent.cs" />

@@ -242,8 +242,13 @@ namespace poid.ViewModels
         {
             if (this.OutputSize != System.Drawing.Size.Empty)
             {
-                this.OutputSize = new System.Drawing.Size(this.OutputSize.Width * 1, this.OutputSize.Height * 1);
+                this.OutputSize = new System.Drawing.Size(this.OutputSize.Width * 2, this.OutputSize.Height * 2);
             }
+        }
+
+        public Bitmap GetClonedInput()
+        {
+            return this.Input.Clone(new Rectangle(0, 0, this.Input.Width, this.Input.Height), this.Input.PixelFormat);
         }
 
         #endregion
