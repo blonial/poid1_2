@@ -20,9 +20,11 @@
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="*"/>
 					<ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
 				<Button Grid.Column="0" Command="{Binding _LoadImage}">Load image</Button>
-				<Button Grid.Column="1" Command="{Binding _SaveOutput}" Visibility="{Binding Output, Converter={StaticResource NullToVisibilityConverter}}">Save output</Button>
+				<Button Grid.Column="1" Command="{Binding _SaveOutput}">Save output</Button>
+                <Button Grid.Column="2" Command="{Binding _LoadOutput}">Load output</Button>
 			</Grid>
 		</Border>
 		<ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">

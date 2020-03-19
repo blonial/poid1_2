@@ -98,7 +98,8 @@ namespace poid.ViewModels
         private void InitializeCommands()
         {
             this._LoadImage = new RelayCommand(this.LoadImage);
-            this._SaveOutput = new RelayCommand(this.SaveOutput);
+            this._SaveOutput = new RelayCommand(o => this.Output != null, this.SaveOutput);
+            this._LoadOutput = new RelayCommand(o => this.Output != null, this.LoadOutput);
             this._ScaleInput_0_5 = new RelayCommand(this.ScaleInput_0_5);
             this._ScaleInput_1_0 = new RelayCommand(this.ScaleInput_1_0);
             this._ScaleInput_2_0 = new RelayCommand(this.ScaleInput_2_0);
@@ -120,6 +121,8 @@ namespace poid.ViewModels
         public ICommand _LoadImage { get; private set; }
 
         public ICommand _SaveOutput { get; private set; }
+
+        public ICommand _LoadOutput { get; private set; }
 
         public ICommand _ScaleInput_0_5 { get; private set; }
 
@@ -198,6 +201,13 @@ namespace poid.ViewModels
                 this.Output.Save(saveFileDialog.FileName);
                 Notify.Info("Image saved successfully!");
             }
+        }
+
+        private void LoadOutput(object o)
+        {
+            this.Input = this.Output;
+            this.Output = null;
+            Notify.Info("Output loaded successfully!");
         }
 
         private void ScaleInput_0_5(object o)
