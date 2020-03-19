@@ -50,6 +50,8 @@ namespace poid.ViewModels
             this.Operations.Add(new NegativeOperation(workspaceViewModel));
             this.Operations.Add(new ContrastChangeOperation(workspaceViewModel));
             this.Operations.Add(new BarchartOperation(workspaceViewModel));
+            this.Operations.Add(new FilterRemoveNoiseArithmeticAverageOperation(workspaceViewModel));
+            this.Operations.Add(new FilterRemoveNoiseMedianOperation(workspaceViewModel));
 
             this.SelectedOperation = this.Operations[0];
         }

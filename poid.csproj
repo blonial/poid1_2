@@ -77,6 +77,8 @@
     <Compile Include="Models\Operations\BarchartOperation.cs" />
     <Compile Include="Models\Operations\BrightnessChangeOperation.cs" />
     <Compile Include="Models\Operations\ContrastChangeOperation.cs" />
+    <Compile Include="Models\Operations\FilterRemoveNoiseArithmeticAverageOperation.cs" />
+    <Compile Include="Models\Operations\FilterRemoveNoiseMedianOperation.cs" />
     <Compile Include="Models\Operations\NegativeOperation.cs" />
     <Compile Include="Models\Operations\Operation.cs" />
     <Compile Include="Models\NotifyPropertyChangedEvent.cs" />
@@ -88,8 +90,11 @@
     <Compile Include="ViewModels\Operations\BarchartOperationViewModel.cs" />
     <Compile Include="ViewModels\Operations\BrightnessChangeOperationViewModel.cs" />
     <Compile Include="ViewModels\Operations\ContrastChangeOperationViewModel.cs" />
+    <Compile Include="ViewModels\Operations\FilterRemoveNoiseArithmeticAverageOperationViewModel.cs" />
+    <Compile Include="ViewModels\Operations\FilterRemoveNoiseMedianOperationViewModel.cs" />
     <Compile Include="ViewModels\Operations\NegativeOperationViewModel.cs" />
     <Compile Include="ViewModels\Operations\OperationViewModel.cs" />
+    <Compile Include="ViewModels\Operations\FilterRemoveNoiseOperationViewModel.cs" />
     <Compile Include="ViewModels\ToolbarViewModel.cs" />
     <Compile Include="ViewModels\WorkspaceViewModel.cs" />
     <Compile Include="Views\BarchartView.xaml.cs">
@@ -106,6 +111,9 @@
     </Compile>
     <Compile Include="Views\Operations\ContrastChangeOperationView.xaml.cs">
       <DependentUpon>ContrastChangeOperationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Operations\FilterRemoveNoiseOperationView.xaml.cs">
+      <DependentUpon>FilterRemoveNoiseOperationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Operations\NegativeOperationView.xaml.cs">
       <DependentUpon>NegativeOperationView.xaml</DependentUpon>
@@ -154,6 +162,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Operations\ContrastChangeOperationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Operations\FilterRemoveNoiseOperationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
