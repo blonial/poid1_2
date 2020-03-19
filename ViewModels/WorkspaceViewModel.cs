@@ -181,6 +181,7 @@ namespace poid.ViewModels
             if (openFileDialog.ShowDialog() == true)
             {
                 this.Input = new Bitmap(openFileDialog.FileName);
+                Notify.Info("Image loaded successfully!");
                 this.Output = null;
             }
         }
@@ -195,6 +196,7 @@ namespace poid.ViewModels
             if (saveFileDialog.ShowDialog() == true)
             {
                 this.Output.Save(saveFileDialog.FileName);
+                Notify.Info("Image saved successfully!");
             }
         }
 
