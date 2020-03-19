@@ -66,7 +66,6 @@ namespace poid.ViewModels.Operations
                 this.Working = false;
             }));
             processImageTask.Start();
-            processImageTask.Wait();
         }
 
         protected abstract void ProcessImage(object sender);
