@@ -63,8 +63,8 @@ namespace poid.ViewModels.Operations
 
                 Bitmap input = this.WorkspaceViewModel.Input;
 
-                int range = 255 / n;
-                int start = 0;
+                double range = 255.0 / n;
+                double start = 0;
 
                 for (int i = 0; i < n; i++)
                 {
@@ -73,13 +73,13 @@ namespace poid.ViewModels.Operations
                     blue.Add(0);
                     if (i != n - 1)
                     {
-                        int next = start + range;
-                        Labels.Add(start + "-" + next);
+                        double next = start + range;
+                        Labels.Add(Convert.ToInt32(start) + "-" + Convert.ToInt32(next));
                         start = next;
                     }
                     else
                     {
-                        Labels.Add(start + "-" + 255);
+                        Labels.Add(Convert.ToInt32(start) + "-" + 255);
                     }
                 }
 
@@ -88,7 +88,7 @@ namespace poid.ViewModels.Operations
                     for (int j = 0; j < input.Height; j++)
                     {
                         int red2 = input.GetPixel(i, j).R;
-                        int redIndex = input.GetPixel(i, j).R / range;
+                        int redIndex = Convert.ToInt32(input.GetPixel(i, j).R / range);
                         if (redIndex == n)
                         {
                             redIndex--;
@@ -96,7 +96,7 @@ namespace poid.ViewModels.Operations
                         red[redIndex]++;
 
                         int green2 = input.GetPixel(i, j).G;
-                        int greenIndex = input.GetPixel(i, j).G / range;
+                        int greenIndex = Convert.ToInt32(input.GetPixel(i, j).G / range);
                         if (greenIndex == n)
                         {
                             greenIndex--;
@@ -104,7 +104,7 @@ namespace poid.ViewModels.Operations
                         green[greenIndex]++;
 
                         int blue2 = input.GetPixel(i, j).B;
-                        int blueIndex = input.GetPixel(i, j).B / range;
+                        int blueIndex = Convert.ToInt32(input.GetPixel(i, j).B / range);
                         if (blueIndex == n)
                         {
                             blueIndex--;
