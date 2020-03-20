@@ -57,10 +57,6 @@ namespace poid.ViewModels.Operations
                 SeriesCollection Series = new SeriesCollection();
                 List<string> Labels = new List<string>();
 
-                List<int> red = new List<int>();
-                List<int> green = new List<int>();
-                List<int> blue = new List<int>();
-
                 Bitmap input = this.WorkspaceViewModel.Input;
 
                 double range = 255.0 / n;
@@ -68,9 +64,6 @@ namespace poid.ViewModels.Operations
 
                 for (int i = 0; i < n; i++)
                 {
-                    red.Add(0);
-                    green.Add(0);
-                    blue.Add(0);
                     if (i != n - 1)
                     {
                         double next = start + range;
@@ -83,43 +76,15 @@ namespace poid.ViewModels.Operations
                     }
                 }
 
-                for (int i = 0; i < input.Width; i++)
-                {
-                    for (int j = 0; j < input.Height; j++)
-                    {
-                        int red2 = input.GetPixel(i, j).R;
-                        int redIndex = Convert.ToInt32(input.GetPixel(i, j).R / range);
-                        if (redIndex == n)
-                        {
-                            redIndex--;
-                        }
-                        red[redIndex]++;
-
-                        int green2 = input.GetPixel(i, j).G;
-                        int greenIndex = Convert.ToInt32(input.GetPixel(i, j).G / range);
-                        if (greenIndex == n)
-                        {
-                            greenIndex--;
-                        }
-                        green[greenIndex]++;
-
-                        int blue2 = input.GetPixel(i, j).B;
-                        int blueIndex = Convert.ToInt32(input.GetPixel(i, j).B / range);
-                        if (blueIndex == n)
-                        {
-                            blueIndex--;
-                        }
-                        blue[blueIndex]++;
-                    }
-                }
+                BarchartData barchartData = BarchartData.GenerateBarcharData(n, input);
 
                 Task.Run(() =>
                 {
                     Application.Current.Dispatcher.Invoke(delegate
                     {
-                        Series.Add(new ColumnSeries { Title = "R", Values = new ChartValues<int>(red), Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 0, 0)) });
-                        Series.Add(new ColumnSeries { Title = "G", Values = new ChartValues<int>(green), Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 255, 0)) });
-                        Series.Add(new ColumnSeries { Title = "B", Values = new ChartValues<int>(blue), Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 255)) });
+                        Series.Add(new ColumnSeries { Title = "R", Values = new ChartValues<int>(barchartData.Red), Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 0, 0)) });
+                        Series.Add(new ColumnSeries { Title = "G", Values = new ChartValues<int>(barchartData.Green), Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 255, 0)) });
+                        Series.Add(new ColumnSeries { Title = "B", Values = new ChartValues<int>(barchartData.Blue), Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 255)) });
                         Window barchart = new BarchartView(Series, Labels);
                         barchart.Show();
                     });
