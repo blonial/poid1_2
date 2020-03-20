@@ -24,20 +24,54 @@ namespace poid.ViewModels.Operations
         {
             Bitmap input = this.WorkspaceViewModel.Input;
             Bitmap output = this.WorkspaceViewModel.GetClonedInput();
+
             List<List<int>> red = this.GetChannelValues(input, PixelSelector.Red);
             List<List<int>> green = this.GetChannelValues(input, PixelSelector.Green);
             List<List<int>> blue = this.GetChannelValues(input, PixelSelector.Blue);
+
+            List<List<int>> redValues = new List<List<int>>();
+            List<List<int>> greenValues = new List<List<int>>();
+            List<List<int>> blueValues = new List<List<int>>();
+
+            int redMax = 0;
+            int greenMax = 0;
+            int blueMax = 0;
+
+            for (int i = 0; i < output.Width; i++)
+            {
+                redValues.Add(new List<int>());
+                greenValues.Add(new List<int>());
+                blueValues.Add(new List<int>());
+
+                for (int j = 0; j < output.Height; j++)
+                {
+                    Color pixel = output.GetPixel(i, j);
+
+                    int r = CalculateNewPixelValue(i, j, red);
+                    redMax = Math.Max(redMax, r);
+                    redValues[i].Add(r);
+
+                    int g = CalculateNewPixelValue(i, j, green);
+                    greenMax = Math.Max(greenMax, g);
+                    greenValues[i].Add(g);
+
+                    int b = CalculateNewPixelValue(i, j, blue);
+                    blueMax = Math.Max(blueMax, b);
+                    blueValues[i].Add(b);
+                }
+            }
+
             for (int i = 0; i < output.Width; i++)
             {
                 for (int j = 0; j < output.Height; j++)
                 {
-                    Color pixel = output.GetPixel(i, j);
-                    int r = CalculateNewPixelValue(i, j, red);
-                    int g = CalculateNewPixelValue(i, j, green);
-                    int b = CalculateNewPixelValue(i, j, blue);
-                    output.SetPixel(i, j, Color.FromArgb(r, g, b));
+                    output.SetPixel(i, j, Color.FromArgb(
+                        this.NormalizePixelValue(redValues[i][j], redMax),
+                        this.NormalizePixelValue(greenValues[i][j], greenMax),
+                        this.NormalizePixelValue(blueValues[i][j], blueMax)));
                 }
             }
+
             this.WorkspaceViewModel.Output = output;
         }
         private int CalculateNewPixelValue(int x, int y, List<List<int>> channel)
@@ -108,6 +142,12 @@ namespace poid.ViewModels.Operations
             }
 
             throw new ArgumentException("Invalid A value");
+        }
+
+        private int NormalizePixelValue(int value, int max)
+        {
+            double result = ((value - 0.0) / (max - 0.0)) * 255.0;
+            return Convert.ToInt32(result);
         }
 
         #endregion
