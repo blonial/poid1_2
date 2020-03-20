@@ -77,12 +77,14 @@
     <Compile Include="Models\Operations\BarchartOperation.cs" />
     <Compile Include="Models\Operations\BrightnessChangeOperation.cs" />
     <Compile Include="Models\Operations\ContrastChangeOperation.cs" />
+    <Compile Include="Models\Operations\FilterKirschOperatorOperation.cs" />
     <Compile Include="Models\Operations\FilterRemoveNoiseArithmeticAverageOperation.cs" />
     <Compile Include="Models\Operations\FilterRemoveNoiseMedianOperation.cs" />
     <Compile Include="Models\Operations\NegativeOperation.cs" />
     <Compile Include="Models\Operations\Operation.cs" />
     <Compile Include="Models\NotifyPropertyChangedEvent.cs" />
     <Compile Include="Models\Interfaces\IOperation.cs" />
+    <Compile Include="Models\PixelSelector.cs" />
     <Compile Include="Models\RegexHelpers.cs" />
     <Compile Include="Models\Workspace.cs" />
     <Compile Include="ViewModels\BarchartViewModel.cs" />
@@ -90,6 +92,7 @@
     <Compile Include="ViewModels\Operations\BarchartOperationViewModel.cs" />
     <Compile Include="ViewModels\Operations\BrightnessChangeOperationViewModel.cs" />
     <Compile Include="ViewModels\Operations\ContrastChangeOperationViewModel.cs" />
+    <Compile Include="ViewModels\Operations\FilterKirschOperatorOperationViewModel.cs" />
     <Compile Include="ViewModels\Operations\FilterRemoveNoiseArithmeticAverageOperationViewModel.cs" />
     <Compile Include="ViewModels\Operations\FilterRemoveNoiseMedianOperationViewModel.cs" />
     <Compile Include="ViewModels\Operations\NegativeOperationViewModel.cs" />
@@ -111,6 +114,9 @@
     </Compile>
     <Compile Include="Views\Operations\ContrastChangeOperationView.xaml.cs">
       <DependentUpon>ContrastChangeOperationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Operations\FilterKirschOperatorOperationView.xaml.cs">
+      <DependentUpon>FilterKirschOperatorOperationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Operations\FilterRemoveNoiseOperationView.xaml.cs">
       <DependentUpon>FilterRemoveNoiseOperationView.xaml</DependentUpon>
@@ -162,6 +168,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Operations\ContrastChangeOperationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Operations\FilterKirschOperatorOperationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

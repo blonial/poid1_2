@@ -52,6 +52,7 @@ namespace poid.ViewModels
             this.Operations.Add(new BarchartOperation(workspaceViewModel));
             this.Operations.Add(new FilterRemoveNoiseArithmeticAverageOperation(workspaceViewModel));
             this.Operations.Add(new FilterRemoveNoiseMedianOperation(workspaceViewModel));
+            this.Operations.Add(new FilterKirschOperatorOperation(workspaceViewModel));
 
             this.SelectedOperation = this.Operations[0];
         }
