@@ -25,11 +25,12 @@ namespace poid.ViewModels.Operations
             if (orderedPixels.Count % 2 == 1)
             {
                 return orderedPixels[orderedPixels.Count / 2];
-            } else
+            }
+            else
             {
-                int lower = orderedPixels.Count;
+                int lower = orderedPixels.Count / 2;
                 return (orderedPixels[lower] + orderedPixels[lower + 1]) / 2;
-            } 
+            }
         }
 
         #endregion

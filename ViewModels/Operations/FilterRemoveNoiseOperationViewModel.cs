@@ -105,45 +105,45 @@ namespace poid.ViewModels.Operations
                 {
                     throw new ArgumentException("Invalid input range!");
                 }
+                Bitmap output = this.WorkspaceViewModel.GetClonedInput();
                 switch (this.SelectedNoiseType)
                 {
                     case NoiseType.Salt:
-                        this.ProcessSaltNoise(x, y);
+                        this.ProcessSaltNoise(x, y, output);
                         break;
                     case NoiseType.Pepper:
-                        this.ProcessPepperNoise(x, y);
+                        this.ProcessPepperNoise(x, y, output);
                         break;
                     case NoiseType.SaltAndPepper:
-                        this.ProcessSaltAndPepperNoise(x, y);
+                        this.ProcessSaltAndPepperNoise(x, y, output);
                         break;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Notify.Error("Invalid input value!\nX must be an odd int between 1 and " + this.WorkspaceViewModel.Input.Width + ".\nY must be an odd int between 1 and " + this.WorkspaceViewModel.Input.Height + ".\nMask can not be 1x1.");
             }
         }
 
-        private void ProcessSaltNoise(int x, int y)
+        private void ProcessSaltNoise(int x, int y, Bitmap output)
         {
-            this.ProcessNoise(x, y, 0);
+            this.ProcessNoise(x, y, 255, output);
         }
 
-        private void ProcessPepperNoise(int x, int y)
+        private void ProcessPepperNoise(int x, int y, Bitmap output)
         {
-            this.ProcessNoise(x, y, 255);
+            this.ProcessNoise(x, y, 0, output);
         }
 
-        private void ProcessSaltAndPepperNoise(int x, int y)
+        private void ProcessSaltAndPepperNoise(int x, int y, Bitmap output)
         {
-            this.ProcessSaltNoise(x, y);
-            this.ProcessPepperNoise(x, y);
+            this.ProcessSaltNoise(x, y, output);
+            this.ProcessPepperNoise(x, y, output);
         }
 
-        private void ProcessNoise(int x, int y, int noisedPixelValue)
+        private void ProcessNoise(int x, int y, int noisedPixelValue, Bitmap output)
         {
             Bitmap input = this.WorkspaceViewModel.Input;
-            Bitmap output = this.WorkspaceViewModel.GetClonedInput();
             for (int i = 0; i < input.Width; i++)
             {
                 for (int j = 0; j < input.Height; j++)
@@ -153,9 +153,9 @@ namespace poid.ViewModels.Operations
                     {
                         List<Color> pixels = this.GetPixelsIncludedToMask(x, y, i, j, input);
                         output.SetPixel(i, j, Color.FromArgb(
-                            this.CalculatePixelValue(pixels.Select(px => (int)pixel.R)),
-                            this.CalculatePixelValue(pixels.Select(px => (int)pixel.G)),
-                            this.CalculatePixelValue(pixels.Select(px => (int)pixel.B))
+                            this.CalculatePixelValue(pixels.Select(px => (int)px.R)),
+                            this.CalculatePixelValue(pixels.Select(px => (int)px.G)),
+                            this.CalculatePixelValue(pixels.Select(px => (int)px.B))
                             ));
                     }
                 }
