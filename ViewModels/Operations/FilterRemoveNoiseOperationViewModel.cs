@@ -41,7 +41,7 @@ namespace poid.ViewModels.Operations
             }
         }
 
-        public ObservableCollection<NoiseType> NoiseTypes { get; } = new ObservableCollection<NoiseType>();
+        public static ObservableCollection<NoiseType> NoiseTypes { get; } = new ObservableCollection<NoiseType>() { NoiseType.Salt, NoiseType.Pepper, NoiseType.SaltAndPepper };
 
         private NoiseType _SelectedNoiseType;
         public NoiseType SelectedNoiseType
@@ -83,11 +83,7 @@ namespace poid.ViewModels.Operations
 
         private void InitializeNoiseTypes()
         {
-            this.NoiseTypes.Add(NoiseType.Salt);
-            this.NoiseTypes.Add(NoiseType.Pepper);
-            this.NoiseTypes.Add(NoiseType.SaltAndPepper);
-
-            this.SelectedNoiseType = this.NoiseTypes[0];
+            this.SelectedNoiseType = NoiseTypes[0];
         }
 
         #endregion

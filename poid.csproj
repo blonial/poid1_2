@@ -77,6 +77,7 @@
     <Compile Include="Models\Operations\BarchartOperation.cs" />
     <Compile Include="Models\Operations\BrightnessChangeOperation.cs" />
     <Compile Include="Models\Operations\ContrastChangeOperation.cs" />
+    <Compile Include="Models\Operations\FilterEdgeSharpeningOperation.cs" />
     <Compile Include="Models\Operations\FilterKirschOperatorOperation.cs" />
     <Compile Include="Models\Operations\FilterRemoveNoiseArithmeticAverageOperation.cs" />
     <Compile Include="Models\Operations\FilterRemoveNoiseMedianOperation.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="ViewModels\Operations\BarchartOperationViewModel.cs" />
     <Compile Include="ViewModels\Operations\BrightnessChangeOperationViewModel.cs" />
     <Compile Include="ViewModels\Operations\ContrastChangeOperationViewModel.cs" />
+    <Compile Include="ViewModels\Operations\FilterEdgeSharpeningOperationViewModel.cs" />
     <Compile Include="ViewModels\Operations\FilterKirschOperatorOperationViewModel.cs" />
     <Compile Include="ViewModels\Operations\FilterRemoveNoiseArithmeticAverageOperationViewModel.cs" />
     <Compile Include="ViewModels\Operations\FilterRemoveNoiseMedianOperationViewModel.cs" />
@@ -114,6 +116,9 @@
     </Compile>
     <Compile Include="Views\Operations\ContrastChangeOperationView.xaml.cs">
       <DependentUpon>ContrastChangeOperationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Operations\FilterEdgeSharpeningOperationView.xaml.cs">
+      <DependentUpon>FilterEdgeSharpeningOperationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Operations\FilterKirschOperatorOperationView.xaml.cs">
       <DependentUpon>FilterKirschOperatorOperationView.xaml</DependentUpon>
@@ -168,6 +173,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Operations\ContrastChangeOperationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Operations\FilterEdgeSharpeningOperationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
