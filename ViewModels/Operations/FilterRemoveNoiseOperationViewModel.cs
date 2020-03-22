@@ -113,8 +113,9 @@ namespace poid.ViewModels.Operations
                         this.ProcessSaltAndPepperNoise(x, y, output);
                         break;
                 }
+                this.WorkspaceViewModel.Output = output;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 Notify.Error("Invalid input value!\nX must be an odd int between 1 and " + this.WorkspaceViewModel.Input.Width + ".\nY must be an odd int between 1 and " + this.WorkspaceViewModel.Input.Height + ".\nMask can not be 1x1.");
             }
@@ -144,23 +145,18 @@ namespace poid.ViewModels.Operations
                 for (int j = 0; j < input.Height; j++)
                 {
                     Color pixel = input.GetPixel(i, j);
-                    if (this.IsPixelNoised(pixel, noisedPixelValue))
-                    {
-                        List<Color> pixels = this.GetPixelsIncludedToMask(x, y, i, j, input);
-                        output.SetPixel(i, j, Color.FromArgb(
-                            this.CalculatePixelValue(pixels.Select(px => (int)px.R)),
-                            this.CalculatePixelValue(pixels.Select(px => (int)px.G)),
-                            this.CalculatePixelValue(pixels.Select(px => (int)px.B))
-                            ));
-                    }
+                    List<Color> pixels = this.GetPixelsIncludedToMask(x, y, i, j, input);
+                    int red = !this.IsPixelNoised(pixel.R, noisedPixelValue) ? this.CalculatePixelValue(pixels.Select(px => (int)px.R)) : pixel.R;
+                    int green = !this.IsPixelNoised(pixel.G, noisedPixelValue) ? this.CalculatePixelValue(pixels.Select(px => (int)px.G)) : pixel.G;
+                    int blue = !this.IsPixelNoised(pixel.B, noisedPixelValue) ? this.CalculatePixelValue(pixels.Select(px => (int)px.B)) : pixel.B;
+                    output.SetPixel(i, j, Color.FromArgb(red, green, blue));
                 }
             }
-            this.WorkspaceViewModel.Output = output;
         }
 
-        private bool IsPixelNoised(Color pixel, int noisedPixelValue)
+        private bool IsPixelNoised(int pixel, int noisedPixelValue)
         {
-            return pixel.R == noisedPixelValue && pixel.G == noisedPixelValue && pixel.B == noisedPixelValue;
+            return pixel == noisedPixelValue;
         }
 
         private List<Color> GetPixelsIncludedToMask(int x, int y, int i, int j, Bitmap input)
