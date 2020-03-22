@@ -10,33 +10,89 @@ namespace poid.ViewModels.Operations
 {
     public class OutputProbabilityDensityOfPowerTo2_3OperationViewModel : OperationViewModel
     {
-        #region Methods
+        #region Properties
 
-        private string _GMin;
-        public string GMin
+        private string _RGMin;
+        public string RGMin
         {
             get
             {
-                return _GMin;
+                return _RGMin;
             }
             set
             {
-                _GMin = value;
-                NotifyPropertyChanged("GMin");
+                _RGMin = value;
+                NotifyPropertyChanged("RGMin");
             }
         }
 
-        private string _GMax;
-        public string GMax
+        private string _RGMax;
+        public string RGMax
         {
             get
             {
-                return _GMax;
+                return _RGMax;
             }
             set
             {
-                _GMax = value;
-                NotifyPropertyChanged("GMax");
+                _RGMax = value;
+                NotifyPropertyChanged("RGMax");
+            }
+        }
+
+        private string _GGMin;
+        public string GGMin
+        {
+            get
+            {
+                return _GGMin;
+            }
+            set
+            {
+                _GGMin = value;
+                NotifyPropertyChanged("GGMin");
+            }
+        }
+
+        private string _GGMax;
+        public string GGMax
+        {
+            get
+            {
+                return _GGMax;
+            }
+            set
+            {
+                _GGMax = value;
+                NotifyPropertyChanged("GGMax");
+            }
+        }
+
+        private string _BGMin;
+        public string BGMin
+        {
+            get
+            {
+                return _BGMin;
+            }
+            set
+            {
+                _BGMin = value;
+                NotifyPropertyChanged("BGMin");
+            }
+        }
+
+        private string _BGMax;
+        public string BGMax
+        {
+            get
+            {
+                return _BGMax;
+            }
+            set
+            {
+                _BGMax = value;
+                NotifyPropertyChanged("BGMax");
             }
         }
 
@@ -56,10 +112,14 @@ namespace poid.ViewModels.Operations
         {
             try
             {
-                int gMin = int.Parse(this.GMin);
-                int gMax = int.Parse(this.GMax);
+                int rGMin = int.Parse(this.RGMin);
+                int rGMax = int.Parse(this.RGMax);
+                int gGMin = int.Parse(this.GGMin);
+                int gGMax = int.Parse(this.GGMax);
+                int bGMin = int.Parse(this.BGMin);
+                int bGMax = int.Parse(this.BGMax);
 
-                if (gMin < 0 || gMin > 255 || gMax < 0 || gMax > 255 || gMin > gMax)
+                if (rGMin < 0 || rGMin > 255 || rGMax < 0 || rGMax > 255 || rGMin > rGMax || gGMin < 0 || gGMin > 255 || gGMax < 0 || gGMax > 255 || gGMin > gGMax || bGMin < 0 || bGMin > 255 || bGMax < 0 || bGMax > 255 || bGMin > bGMax)
                 {
                     throw new ArgumentException("Invalid input range!");
                 }
@@ -68,6 +128,7 @@ namespace poid.ViewModels.Operations
                 Bitmap output = this.WorkspaceViewModel.GetClonedInput();
 
                 BarchartData barchartData = BarchartData.GenerateBarcharData(256, input);
+                int n = input.Width * input.Height;
 
                 for (int i = 0; i < output.Width; i++)
                 {
@@ -75,9 +136,9 @@ namespace poid.ViewModels.Operations
                     {
                         Color pixel = input.GetPixel(i, j);
                         output.SetPixel(i, j, Color.FromArgb(
-                            this.CalculateNewPixelValue(gMin, gMax, i, j, pixel.R, barchartData.Red),
-                            this.CalculateNewPixelValue(gMin, gMax, i, j, pixel.G, barchartData.Green),
-                            this.CalculateNewPixelValue(gMin, gMax, i, j, pixel.B, barchartData.Blue)
+                            this.CalculateNewPixelValue(rGMin, rGMax, i, j, pixel.R, barchartData.Red, n),
+                            this.CalculateNewPixelValue(gGMin, gGMax, i, j, pixel.G, barchartData.Green, n),
+                            this.CalculateNewPixelValue(bGMin, bGMax, i, j, pixel.B, barchartData.Blue, n)
                             ));
                     }
                 }
@@ -89,24 +150,15 @@ namespace poid.ViewModels.Operations
             }
         }
 
-        private int CalculateNewPixelValue(int gMin, int gMax, int x, int y, int pixelValue, List<int> barcharChannel)
+        private int CalculateNewPixelValue(int gMin, int gMax, int x, int y, int pixelValue, List<int> barcharChannel, int n)
         {
-            double gMin1_3 = Math.Pow(Convert.ToDouble(gMin), 2.0 / 3.0);
-            double gMax1_3 = Math.Pow(Convert.ToDouble(gMax), 2.0 / 3.0);
-            double n = Convert.ToDouble(x * y);
+            double gMin1_3 = Math.Pow(Convert.ToDouble(gMin), 1.0 / 3.0);
+            double gMax1_3 = Math.Pow(Convert.ToDouble(gMax), 1.0 / 3.0);
             double difference = gMax1_3 - gMin1_3;
             double histogramSum = this.CalculateHistogramSum(pixelValue, barcharChannel);
             double division = histogramSum / n;
             double value = Math.Pow(gMin1_3 + (difference * division), 3.0);
-            int newValue = 0;
-            try
-            {
-                newValue = Convert.ToInt32(value);
-            }
-            catch (Exception e)
-            {
-
-            }
+            int newValue = Convert.ToInt32(value);
 
             return newValue > 255 ? 255 : newValue < 0 ? 0 : newValue;
         }

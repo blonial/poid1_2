@@ -12,16 +12,30 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Label Grid.Column="0">Gmin:</Label>
-        <TextBox Grid.Column="1" Text="{Binding GMin, Mode=TwoWay}" Width="36" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLength="3"/>
-        <Label Grid.Column="2">Gmax:</Label>
-        <TextBox Grid.Column="3" Text="{Binding GMax, Mode=TwoWay}" Width="36" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLength="3"/>
-        <Button Grid.Column="5" Command="{Binding _ProcessImage}">Process image</Button>
+        <Label Grid.Column="0" Grid.Row="0">Red (Gmin:</Label>
+        <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding RGMin, Mode=TwoWay}" Width="36" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLength="3"/>
+        <Label Grid.Column="2" Grid.Row="0">Gmax:</Label>
+        <TextBox Grid.Column="3" Grid.Row="0" Text="{Binding RGMax, Mode=TwoWay}" Width="36" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLength="3"/>
+        <Label Grid.Column="4" Grid.Row="0">)</Label>
+        <Label Grid.Column="0" Grid.Row="1">Green (Gmin:</Label>
+        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding GGMin, Mode=TwoWay}" Width="36" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLength="3"/>
+        <Label Grid.Column="2" Grid.Row="1">Gmax:</Label>
+        <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding GGMax, Mode=TwoWay}" Width="36" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLength="3"/>
+        <Label Grid.Column="4" Grid.Row="1">)</Label>
+        <Label Grid.Column="0" Grid.Row="2">Blue (Gmin:</Label>
+        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding BGMin, Mode=TwoWay}" Width="36" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLength="3"/>
+        <Label Grid.Column="2" Grid.Row="2">Gmax:</Label>
+        <TextBox Grid.Column="3" Grid.Row="2" Text="{Binding BGMax, Mode=TwoWay}" Width="36" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MaxLength="3"/>
+        <Label Grid.Column="4" Grid.Row="2">)</Label>
+        <Button Grid.Column="6" Command="{Binding _ProcessImage}">Process image</Button>
     </Grid>
 </UserControl>

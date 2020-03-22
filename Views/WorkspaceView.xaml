@@ -11,28 +11,26 @@
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="Auto"/>
-			<RowDefinition Height="64"/>
+			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
 		<Label Grid.Row="0" HorizontalAlignment="Center" Content="{Binding Index}" ContentStringFormat="Workspace {0}" FontSize="16" FontWeight="Bold"/>
-		<Border Grid.Row="1" BorderBrush="Black" BorderThickness="0,0,0,2">
-			<Grid>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="*"/>
-					<ColumnDefinition Width="*"/>
+        <Border Grid.Row="1" BorderBrush="Black" BorderThickness="0,0,0,2">
+            <Grid>
+                <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-				</Grid.ColumnDefinitions>
-				<Button Grid.Column="0" Command="{Binding _LoadImage}">Load image</Button>
-				<Button Grid.Column="1" Command="{Binding _SaveOutput}">Save output</Button>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Command="{Binding _LoadImage}">Load image</Button>
+                <Button Grid.Column="1" Command="{Binding _SaveOutput}">Save output</Button>
                 <Button Grid.Column="2" Command="{Binding _LoadOutput}">Load output</Button>
-			</Grid>
-		</Border>
-		<ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-			<Border BorderBrush="Black" BorderThickness="0,0,0,2">
-				<UserControl Content="{Binding ToolbarView}"/>
-			</Border>
-		</ScrollViewer>
-		<ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            </Grid>
+        </Border>
+        <Border Grid.Row="2"  BorderBrush="Black" BorderThickness="0,0,0,2">
+            <UserControl Content="{Binding ToolbarView}"/>
+        </Border>
+        <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
 			<Grid Margin="16,0">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto"/>
