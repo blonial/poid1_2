@@ -78,6 +78,7 @@
     <Compile Include="Models\Operations\BarchartOperation.cs" />
     <Compile Include="Models\Operations\BrightnessChangeOperation.cs" />
     <Compile Include="Models\Operations\ContrastChangeOperation.cs" />
+    <Compile Include="Models\Operations\CustomFilterOperation.cs" />
     <Compile Include="Models\Operations\FilterEdgeSharpeningOperation.cs" />
     <Compile Include="Models\Operations\FilterKirschOperatorOperation.cs" />
     <Compile Include="Models\Operations\FilterRemoveNoiseArithmeticAverageOperation.cs" />
@@ -92,9 +93,11 @@
     <Compile Include="Models\Workspace.cs" />
     <Compile Include="ViewModels\BarchartViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\MaskCreatorViewModel.cs" />
     <Compile Include="ViewModels\Operations\BarchartOperationViewModel.cs" />
     <Compile Include="ViewModels\Operations\BrightnessChangeOperationViewModel.cs" />
     <Compile Include="ViewModels\Operations\ContrastChangeOperationViewModel.cs" />
+    <Compile Include="ViewModels\Operations\CustomFilterOperationViewModel.cs" />
     <Compile Include="ViewModels\Operations\FilterEdgeSharpeningOperationViewModel.cs" />
     <Compile Include="ViewModels\Operations\FilterKirschOperatorOperationViewModel.cs" />
     <Compile Include="ViewModels\Operations\FilterRemoveNoiseArithmeticAverageOperationViewModel.cs" />
@@ -111,6 +114,9 @@
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\MaskCreatorView.xaml.cs">
+      <DependentUpon>MaskCreatorView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Operations\BarchartOperationView.xaml.cs">
       <DependentUpon>BarchartOperationView.xaml</DependentUpon>
     </Compile>
@@ -119,6 +125,9 @@
     </Compile>
     <Compile Include="Views\Operations\ContrastChangeOperationView.xaml.cs">
       <DependentUpon>ContrastChangeOperationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Operations\CustomFilterOperationView.xaml.cs">
+      <DependentUpon>CustomFilterOperationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Operations\FilterEdgeSharpeningOperationView.xaml.cs">
       <DependentUpon>FilterEdgeSharpeningOperationView.xaml</DependentUpon>
@@ -170,6 +179,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\MaskCreatorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Operations\BarchartOperationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -179,6 +192,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Operations\ContrastChangeOperationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Operations\CustomFilterOperationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

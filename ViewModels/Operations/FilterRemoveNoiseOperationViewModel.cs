@@ -92,12 +92,11 @@ namespace poid.ViewModels.Operations
 
         protected override void ProcessImage(object sender)
         {
-            int x = 0, y = 0;
             try
             {
-                x = int.Parse(this.X);
-                y = int.Parse(this.Y);
-                if (x < 1 || y < 1 || x > this.WorkspaceViewModel.Input.Width || y > this.WorkspaceViewModel.Input.Height || x % 2 == 0 || y % 2 == 0)
+                int x = int.Parse(this.X);
+                int y = int.Parse(this.Y);
+                if (x < 1 || y < 1 || x > this.WorkspaceViewModel.Input.Width || y > this.WorkspaceViewModel.Input.Height || x % 2 == 0 || y % 2 == 0 || (x == 1 && y == 1))
                 {
                     throw new ArgumentException("Invalid input range!");
                 }
