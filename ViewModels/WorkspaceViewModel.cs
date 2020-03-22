@@ -260,7 +260,7 @@ namespace poid.ViewModels
 
         public Bitmap GetClonedInput()
         {
-            return this.Input.Clone(new Rectangle(0, 0, this.Input.Width, this.Input.Height), this.Input.PixelFormat);
+            return this.Input.Clone(new Rectangle(0, 0, this.Input.Width, this.Input.Height), System.Drawing.Imaging.PixelFormat.Format32bppArgb);
         }
 
         #endregion
