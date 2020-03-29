@@ -41,49 +41,12 @@ namespace poid.ViewModels.Operations
             }
         }
 
-        public static ObservableCollection<NoiseType> NoiseTypes { get; } = new ObservableCollection<NoiseType>() { NoiseType.Salt, NoiseType.Pepper, NoiseType.SaltAndPepper };
-
-        private NoiseType _SelectedNoiseType;
-        public NoiseType SelectedNoiseType
-        {
-            get
-            {
-                return _SelectedNoiseType;
-            }
-            set
-            {
-                _SelectedNoiseType = value;
-                NotifyPropertyChanged("SelectedNoiseType");
-            }
-        }
-
-        #endregion
-
-        #region Enums
-
-        public enum NoiseType
-        {
-            Salt,
-            Pepper,
-            SaltAndPepper
-        }
-
         #endregion
 
         #region Constructors
 
         public FilterRemoveNoiseOperationViewModel(WorkspaceViewModel workspaceViewModel) : base(workspaceViewModel)
         {
-            this.InitializeNoiseTypes();
-        }
-
-        #endregion
-
-        #region Initializers
-
-        private void InitializeNoiseTypes()
-        {
-            this.SelectedNoiseType = NoiseTypes[0];
         }
 
         #endregion
@@ -100,45 +63,19 @@ namespace poid.ViewModels.Operations
                 {
                     throw new ArgumentException("Invalid input range!");
                 }
-                Bitmap output = this.WorkspaceViewModel.GetClonedInput();
-                switch (this.SelectedNoiseType)
-                {
-                    case NoiseType.Salt:
-                        this.ProcessSaltNoise(x, y, output);
-                        break;
-                    case NoiseType.Pepper:
-                        this.ProcessPepperNoise(x, y, output);
-                        break;
-                    case NoiseType.SaltAndPepper:
-                        this.ProcessSaltAndPepperNoise(x, y, output);
-                        break;
-                }
-                this.WorkspaceViewModel.Output = output;
+
+                this.ProcessNoise(x, y);
+
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Notify.Error("Invalid input value!\nX must be an odd int between 1 and " + this.WorkspaceViewModel.Input.Width + ".\nY must be an odd int between 1 and " + this.WorkspaceViewModel.Input.Height + ".\nMask can not be 1x1.");
             }
         }
 
-        private void ProcessSaltNoise(int x, int y, Bitmap output)
+        private void ProcessNoise(int x, int y)
         {
-            this.ProcessNoise(x, y, 255, output);
-        }
-
-        private void ProcessPepperNoise(int x, int y, Bitmap output)
-        {
-            this.ProcessNoise(x, y, 0, output);
-        }
-
-        private void ProcessSaltAndPepperNoise(int x, int y, Bitmap output)
-        {
-            this.ProcessSaltNoise(x, y, output);
-            this.ProcessPepperNoise(x, y, output);
-        }
-
-        private void ProcessNoise(int x, int y, int noisedPixelValue, Bitmap output)
-        {
+            Bitmap output = this.WorkspaceViewModel.GetClonedInput();
             Bitmap input = this.WorkspaceViewModel.Input;
             for (int i = 0; i < input.Width; i++)
             {
@@ -146,17 +83,13 @@ namespace poid.ViewModels.Operations
                 {
                     Color pixel = input.GetPixel(i, j);
                     List<Color> pixels = this.GetPixelsIncludedToMask(x, y, i, j, input);
-                    int red = !this.IsPixelNoised(pixel.R, noisedPixelValue) ? this.CalculatePixelValue(pixels.Select(px => (int)px.R)) : pixel.R;
-                    int green = !this.IsPixelNoised(pixel.G, noisedPixelValue) ? this.CalculatePixelValue(pixels.Select(px => (int)px.G)) : pixel.G;
-                    int blue = !this.IsPixelNoised(pixel.B, noisedPixelValue) ? this.CalculatePixelValue(pixels.Select(px => (int)px.B)) : pixel.B;
+                    int red = this.CalculatePixelValue(pixels.Select(px => (int)px.R));
+                    int green = this.CalculatePixelValue(pixels.Select(px => (int)px.G));
+                    int blue = this.CalculatePixelValue(pixels.Select(px => (int)px.B));
                     output.SetPixel(i, j, Color.FromArgb(red, green, blue));
                 }
             }
-        }
-
-        private bool IsPixelNoised(int pixel, int noisedPixelValue)
-        {
-            return pixel == noisedPixelValue;
+            this.WorkspaceViewModel.Output = output;
         }
 
         private List<Color> GetPixelsIncludedToMask(int x, int y, int i, int j, Bitmap input)
@@ -174,10 +107,6 @@ namespace poid.ViewModels.Operations
             {
                 for (int l = startY; l <= stopY; l++)
                 {
-                    if (k == i && l == j)
-                    {
-                        continue;
-                    }
                     pixels.Add(input.GetPixel(k, l));
                 }
             }

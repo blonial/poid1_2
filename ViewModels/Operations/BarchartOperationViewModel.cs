@@ -49,12 +49,10 @@ namespace poid.ViewModels.Operations
             try
             {
                 int n = int.Parse(this.N);
-                if (n > 256 || n < 1)
+                if (n > 255 || n < 1)
                 {
                     throw new ArgumentException("Invalid input range!");
                 }
-
-                SeriesCollection Series = new SeriesCollection();
                 List<string> Labels = new List<string>();
 
                 Bitmap input = this.WorkspaceViewModel.Input;
@@ -82,11 +80,22 @@ namespace poid.ViewModels.Operations
                 {
                     Application.Current.Dispatcher.Invoke(delegate
                     {
-                        Series.Add(new ColumnSeries { Title = "R", Values = new ChartValues<int>(barchartData.Red), Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 0, 0)) });
-                        Series.Add(new ColumnSeries { Title = "G", Values = new ChartValues<int>(barchartData.Green), Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 255, 0)) });
-                        Series.Add(new ColumnSeries { Title = "B", Values = new ChartValues<int>(barchartData.Blue), Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 255)) });
-                        Window barchart = new BarchartView(Series, Labels);
-                        barchart.Show();
+                        SeriesCollection red = new SeriesCollection();
+                        red.Add(new LineSeries { Title = "R", Values = new ChartValues<int>(barchartData.Red), Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 0, 0)), PointGeometry = null });
+
+                        SeriesCollection green = new SeriesCollection();
+                        green.Add(new LineSeries { Title = "G", Values = new ChartValues<int>(barchartData.Green), Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 255, 0)), PointGeometry = null });
+
+                        SeriesCollection blue = new SeriesCollection();
+                        blue.Add(new LineSeries { Title = "B", Values = new ChartValues<int>(barchartData.Blue), Fill = new SolidColorBrush(System.Windows.Media.Color.FromRgb(0, 0, 255)), PointGeometry = null });
+
+                        Window redWindow = new BarchartView(red, Labels);
+                        Window greenWindow = new BarchartView(green, Labels);
+                        Window blueWindow = new BarchartView(blue, Labels);
+
+                        redWindow.Show();
+                        greenWindow.Show();
+                        blueWindow.Show();
                     });
                 });
             }

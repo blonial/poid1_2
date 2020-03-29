@@ -19,7 +19,7 @@
         </Grid.RowDefinitions>
         <Label Grid.Column="0">n</Label>
         <TextBox Grid.Column="1" Text="{Binding N, Mode=TwoWay}" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <Label Grid.Column="2">(1, 256)</Label>
+        <Label Grid.Column="2">(1, 255)</Label>
         <Button Grid.Column="4" Command="{Binding _ProcessImage}">Process image</Button>
     </Grid>
 </UserControl>
