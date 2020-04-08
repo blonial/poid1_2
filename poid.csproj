@@ -80,6 +80,7 @@
     <Compile Include="Converters\BitmapToImageSourceConverter.cs" />
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Models\BarchartData.cs" />
+    <Compile Include="Models\ImageRegion.cs" />
     <Compile Include="Models\Notify.cs" />
     <Compile Include="Models\Operations\BarchartOperation.cs" />
     <Compile Include="Models\Operations\BrightnessChangeOperation.cs" />
@@ -94,8 +95,12 @@
     <Compile Include="Models\NotifyPropertyChangedEvent.cs" />
     <Compile Include="Models\Interfaces\IOperation.cs" />
     <Compile Include="Models\Operations\OutputProbabilityDensityOfPowerTo2_3Operation.cs" />
+    <Compile Include="Models\Operations\RegionSplittingAndMergingOperation.cs" />
+    <Compile Include="Models\Pixel.cs" />
     <Compile Include="Models\PixelSelector.cs" />
     <Compile Include="Models\RegexHelpers.cs" />
+    <Compile Include="Models\RegionMasks.cs" />
+    <Compile Include="Models\SplittedImageRegion.cs" />
     <Compile Include="Models\Workspace.cs" />
     <Compile Include="ViewModels\BarchartViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -112,6 +117,7 @@
     <Compile Include="ViewModels\Operations\OperationViewModel.cs" />
     <Compile Include="ViewModels\Operations\FilterRemoveNoiseOperationViewModel.cs" />
     <Compile Include="ViewModels\Operations\OutputProbabilityDensityOfPowerTo2_3OperationViewModel.cs" />
+    <Compile Include="ViewModels\Operations\RegionSplittingAndMergingOperationViewModel.cs" />
     <Compile Include="ViewModels\ToolbarViewModel.cs" />
     <Compile Include="ViewModels\WorkspaceViewModel.cs" />
     <Compile Include="Views\BarchartView.xaml.cs">
@@ -149,6 +155,9 @@
     </Compile>
     <Compile Include="Views\Operations\OutputProbabilityDensityOfPowerTo2_3OperationView.xaml.cs">
       <DependentUpon>OutputProbabilityDensityOfPowerTo2_3OperationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Operations\RegionSplittingAndMergingOperationView.xaml.cs">
+      <DependentUpon>RegionSplittingAndMergingOperationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ToolbarView.xaml.cs">
       <DependentUpon>ToolbarView.xaml</DependentUpon>
@@ -222,6 +231,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Operations\OutputProbabilityDensityOfPowerTo2_3OperationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Operations\RegionSplittingAndMergingOperationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
