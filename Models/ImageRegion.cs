@@ -51,11 +51,11 @@ namespace poid.Models
             return GetImageRegions(map);
         }
 
-        private static void MergeImageRegionsIfAreUniform(ImageRegion ir1, ImageRegion ir2, int mergePixelsRange)
+        private static void MergeImageRegionsIfAreUniform(ref ImageRegion ir1, ref ImageRegion ir2, int mergePixelsRange)
         {
             if (ir1 != ir2 && AreImageRegionsUniform(ir1, ir2, mergePixelsRange))
             {
-                MergeImageRegions(ir1, ir2);
+                MergeImageRegions(ref ir1, ref ir2);
             }
         }
 
@@ -66,7 +66,7 @@ namespace poid.Models
                 && ir1.MaxB - ir2.MinB <= mergePixelsRange && ir2.MaxB - ir1.MinB <= mergePixelsRange;
         }
 
-        private static void MergeImageRegions(ImageRegion ir1, ImageRegion ir2)
+        private static void MergeImageRegions(ref ImageRegion ir1, ref ImageRegion ir2)
         {
             ir1.Pixels.AddRange(ir2.Pixels);
             ir1.MaxR = ir1.MaxR > ir2.MaxR ? ir1.MaxR : ir2.MaxR;
@@ -85,8 +85,8 @@ namespace poid.Models
             {
                 int x = splittedImageRegions[i].X;
                 int y = splittedImageRegions[i].Y;
-                int regionWidth = splittedImageRegions[i].Width;
-                int regionHeight = splittedImageRegions[i].Height;
+                int regionWidth = splittedImageRegions[i].Width + x;
+                int regionHeight = splittedImageRegions[i].Height + y;
                 ImageRegion region = new ImageRegion(splittedImageRegions[i]);
                 for (int m = x; m < regionWidth; m++)
                 {
@@ -109,7 +109,7 @@ namespace poid.Models
                 {
                     GetNeighboringPoints(i, j, width, height).ForEach(point =>
                        {
-                           MergeImageRegionsIfAreUniform(map[i, j], map[point.X, point.Y], mergePixelsRange);
+                           MergeImageRegionsIfAreUniform(ref map[i, j], ref map[point.X, point.Y], mergePixelsRange);
                        });
                 }
             }
@@ -122,9 +122,9 @@ namespace poid.Models
             int y = j - 1 < 0 ? 0 : j;
             int maxX = i + 1 > width - 1 ? width - 1 : i + 1;
             int maxY = j + 1 > height - 1 ? height - 1 : j + 1;
-            for (int a = x; a < maxX; a++)
+            for (int a = x; a <= maxX; a++)
             {
-                for (int b = y; b < maxY; b++)
+                for (int b = y; b <= maxY; b++)
                 {
                     if (a == i && b == j)
                     {

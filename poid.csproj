@@ -99,10 +99,11 @@
     <Compile Include="Models\Pixel.cs" />
     <Compile Include="Models\PixelSelector.cs" />
     <Compile Include="Models\RegexHelpers.cs" />
-    <Compile Include="Models\RegionMasks.cs" />
+    <Compile Include="Models\RegionMask.cs" />
     <Compile Include="Models\SplittedImageRegion.cs" />
     <Compile Include="Models\Workspace.cs" />
     <Compile Include="ViewModels\BarchartViewModel.cs" />
+    <Compile Include="ViewModels\ImageMasksViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MaskCreatorViewModel.cs" />
     <Compile Include="ViewModels\Operations\BarchartOperationViewModel.cs" />
@@ -122,6 +123,9 @@
     <Compile Include="ViewModels\WorkspaceViewModel.cs" />
     <Compile Include="Views\BarchartView.xaml.cs">
       <DependentUpon>BarchartView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ImageMasksView.xaml.cs">
+      <DependentUpon>ImageMasksView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
@@ -187,6 +191,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\BarchartView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ImageMasksView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -7,27 +7,28 @@ using System.Threading.Tasks;
 
 namespace poid.Models
 {
-    public class RegionMasks
+    public class RegionMask
     {
         #region Properties
 
-        public readonly Bitmap Mask;
-
         public readonly List<Pixel> Pixels;
+
+        public readonly int Width;
+
+        public readonly int Height;
+
+        public int MaskNumber { get; }
 
         #endregion
 
         #region Constructors
 
-        private RegionMasks(ImageRegion imageRegion, int width, int height)
+        private RegionMask(ImageRegion imageRegion, int width, int height, int maskNumber)
         {
-            Bitmap mask = GetBlackBitmap(width, height);
-            imageRegion.Pixels.ForEach(pixel =>
-            {
-                mask.SetPixel(pixel.X, pixel.Y, Color.White);
-            });
-            this.Mask = mask;
             this.Pixels = imageRegion.Pixels;
+            this.Width = width;
+            this.Height = height;
+            this.MaskNumber = maskNumber;
         }
 
         #endregion
@@ -36,7 +37,7 @@ namespace poid.Models
 
         public Bitmap GenerateImageWithMask(Color emptyPixelColor)
         {
-            Bitmap image = GetEmptyBitmap(this.Mask.Width, this.Mask.Height, emptyPixelColor);
+            Bitmap image = GetEmptyBitmap(this.Width, this.Height, emptyPixelColor);
             this.Pixels.ForEach(pixel =>
             {
                 image.SetPixel(pixel.X, pixel.Y, pixel.Color);
@@ -44,18 +45,34 @@ namespace poid.Models
             return image;
         }
 
+        public Bitmap GenerateMask()
+        {
+            Bitmap mask = GetBlackBitmap(this.Width, this.Height);
+            this.Pixels.ForEach(pixel =>
+            {
+                mask.SetPixel(pixel.X, pixel.Y, Color.White);
+            });
+            return mask;
+        }
+
+        public override string ToString()
+        {
+            return "Mask " + this.MaskNumber;
+        }
+
         #endregion
 
         #region Static Methods
 
-        public static List<RegionMasks> SplitAndMergeImageRegions(Bitmap image, int splitPixelsRange, int mergePixelsRange)
+        public static List<RegionMask> SplitAndMergeImageRegions(Bitmap image, int splitPixelsRange, int mergePixelsRange)
         {
             List<SplittedImageRegion> splittedRegions = SplittedImageRegion.SplitImageRegions(image, splitPixelsRange);
             List<ImageRegion> imageRegions = ImageRegion.MergeImageRegions(splittedRegions, mergePixelsRange, image.Width, image.Height);
-            List<RegionMasks> regionMasks = new List<RegionMasks>();
-            imageRegions.ForEach(regionImage => {
-                regionMasks.Add(new RegionMasks(regionImage, image.Width, image.Height));
-            });
+            List<RegionMask> regionMasks = new List<RegionMask>();
+            for(int i=0; i<imageRegions.Count; i++)
+            {
+                regionMasks.Add(new RegionMask(imageRegions[i], image.Width, image.Height, i + 1));
+            }
             return regionMasks;
         }
 
