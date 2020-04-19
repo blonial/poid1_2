@@ -98,7 +98,6 @@ namespace poid.ViewModels.Operations
             {
                 Notify.Error(e.Message);
             }
-
         }
 
         protected abstract void CheckInputs();

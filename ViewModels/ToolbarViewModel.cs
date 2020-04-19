@@ -62,6 +62,7 @@ namespace poid.ViewModels
             this.Operations.Add(new BandpassFilterOperation(workspaceViewModel));
             this.Operations.Add(new BandbarraggeFilterOperation(workspaceViewModel));
             this.Operations.Add(new FilterWithEdgeDetectionOperation(workspaceViewModel));
+            this.Operations.Add(new FilterModifyingPhaseSpectrumOperation(workspaceViewModel));
 
             this.SelectedOperation = this.Operations[0];
         }
