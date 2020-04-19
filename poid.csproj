@@ -80,8 +80,11 @@
     <Compile Include="Converters\BitmapToImageSourceConverter.cs" />
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Models\BarchartData.cs" />
+    <Compile Include="Models\FFT.cs" />
     <Compile Include="Models\ImageRegion.cs" />
     <Compile Include="Models\Notify.cs" />
+    <Compile Include="Models\Operations\BandbarraggeFilterOperation.cs" />
+    <Compile Include="Models\Operations\BandpassFilterOperation.cs" />
     <Compile Include="Models\Operations\BarchartOperation.cs" />
     <Compile Include="Models\Operations\BrightnessChangeOperation.cs" />
     <Compile Include="Models\Operations\ContrastChangeOperation.cs" />
@@ -90,6 +93,9 @@
     <Compile Include="Models\Operations\FilterKirschOperatorOperation.cs" />
     <Compile Include="Models\Operations\FilterRemoveNoiseArithmeticAverageOperation.cs" />
     <Compile Include="Models\Operations\FilterRemoveNoiseMedianOperation.cs" />
+    <Compile Include="Models\Operations\FilterWithEdgeDetectionOperation.cs" />
+    <Compile Include="Models\Operations\HighPassFilterOperation.cs" />
+    <Compile Include="Models\Operations\LowPassFilterOperation.cs" />
     <Compile Include="Models\Operations\NegativeOperation.cs" />
     <Compile Include="Models\Operations\Operation.cs" />
     <Compile Include="Models\NotifyPropertyChangedEvent.cs" />
@@ -104,8 +110,11 @@
     <Compile Include="Models\Workspace.cs" />
     <Compile Include="ViewModels\BarchartViewModel.cs" />
     <Compile Include="ViewModels\ImageMasksViewModel.cs" />
+    <Compile Include="ViewModels\ImageViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MaskCreatorViewModel.cs" />
+    <Compile Include="ViewModels\Operations\BandbarraggeFilterOperationViewModel.cs" />
+    <Compile Include="ViewModels\Operations\BandpassFilterOperationViewModel.cs" />
     <Compile Include="ViewModels\Operations\BarchartOperationViewModel.cs" />
     <Compile Include="ViewModels\Operations\BrightnessChangeOperationViewModel.cs" />
     <Compile Include="ViewModels\Operations\ContrastChangeOperationViewModel.cs" />
@@ -114,6 +123,10 @@
     <Compile Include="ViewModels\Operations\FilterKirschOperatorOperationViewModel.cs" />
     <Compile Include="ViewModels\Operations\FilterRemoveNoiseArithmeticAverageOperationViewModel.cs" />
     <Compile Include="ViewModels\Operations\FilterRemoveNoiseMedianOperationViewModel.cs" />
+    <Compile Include="ViewModels\Operations\FilterWithEdgeDetectionOperationViewModel.cs" />
+    <Compile Include="ViewModels\Operations\FourierFilterViewModel.cs" />
+    <Compile Include="ViewModels\Operations\HighPassFilterOperationViewModel.cs" />
+    <Compile Include="ViewModels\Operations\LowPassFilterOperationViewModel.cs" />
     <Compile Include="ViewModels\Operations\NegativeOperationViewModel.cs" />
     <Compile Include="ViewModels\Operations\OperationViewModel.cs" />
     <Compile Include="ViewModels\Operations\FilterRemoveNoiseOperationViewModel.cs" />
@@ -127,11 +140,20 @@
     <Compile Include="Views\ImageMasksView.xaml.cs">
       <DependentUpon>ImageMasksView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ImageView.xaml.cs">
+      <DependentUpon>ImageView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MaskCreatorView.xaml.cs">
       <DependentUpon>MaskCreatorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Operations\BandbarraggeFilterOperationView.xaml.cs">
+      <DependentUpon>BandbarraggeFilterOperationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Operations\BandpassFilterOperationView.xaml.cs">
+      <DependentUpon>BandpassFilterOperationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Operations\BarchartOperationView.xaml.cs">
       <DependentUpon>BarchartOperationView.xaml</DependentUpon>
@@ -153,6 +175,15 @@
     </Compile>
     <Compile Include="Views\Operations\FilterRemoveNoiseOperationView.xaml.cs">
       <DependentUpon>FilterRemoveNoiseOperationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Operations\FilterWithEdgeDetectionOperationView.xaml.cs">
+      <DependentUpon>FilterWithEdgeDetectionOperationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Operations\HighPassFilterOperationView.xaml.cs">
+      <DependentUpon>HighPassFilterOperationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Operations\LowPassFilterOperationView.xaml.cs">
+      <DependentUpon>LowPassFilterOperationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Operations\NegativeOperationView.xaml.cs">
       <DependentUpon>NegativeOperationView.xaml</DependentUpon>
@@ -198,11 +229,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ImageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MaskCreatorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Operations\BandbarraggeFilterOperationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Operations\BandpassFilterOperationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -231,6 +274,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Operations\FilterRemoveNoiseOperationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Operations\FilterWithEdgeDetectionOperationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Operations\HighPassFilterOperationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Operations\LowPassFilterOperationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

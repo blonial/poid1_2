@@ -57,6 +57,11 @@ namespace poid.ViewModels
             this.Operations.Add(new OutputProbabilityDensityOfPowerTo2_3Operation(workspaceViewModel));
             this.Operations.Add(new CustomFilterOperation(workspaceViewModel));
             this.Operations.Add(new RegionSplittingAndMergingOperation(workspaceViewModel));
+            this.Operations.Add(new LowPassFilterOperation(workspaceViewModel));
+            this.Operations.Add(new HighPassFilterOperation(workspaceViewModel));
+            this.Operations.Add(new BandpassFilterOperation(workspaceViewModel));
+            this.Operations.Add(new BandbarraggeFilterOperation(workspaceViewModel));
+            this.Operations.Add(new FilterWithEdgeDetectionOperation(workspaceViewModel));
 
             this.SelectedOperation = this.Operations[0];
         }

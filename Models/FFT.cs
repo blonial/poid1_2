@@ -31,34 +31,30 @@ namespace poid.Models
 
         public static int[,] IFFT2(Complex[,] data)
         {
-            int x = data.GetLength(0);
-            int y = data.GetLength(1);
+            int width = data.GetLength(0);
+            int height = data.GetLength(1);
 
-            for (int i = 0; i < x; i++)
+            FourierTransform.FFT2(data, FourierTransform.Direction.Backward);
+
+            for (int y = 0; y < height; y++)
             {
-                for (int j = 0; j < y; j++)
+                for (int x = 0; x < width; x++)
                 {
-                    SwapComplexReIm(data[i, j]);
+                    if (((x + y) & 0x1) != 0)
+                    {
+                        data[y, x].Re *= -1;
+                        data[y, x].Im *= -1;
+                    }
                 }
             }
 
-            FourierTransform.FFT2(data, FourierTransform.Direction.Forward);
-
-            for (int i = 0; i < x; i++)
+            int[,] result = new int[width, height];
+            for (int i = 0; i < width; i++)
             {
-                for (int j = 0; j < y; j++)
+                for (int j = 0; j < height; j++)
                 {
-                    SwapComplexReIm(data[i, j]);
-                    data[i, j].Re /= x;
-                }
-            }
-
-            int[,] result = new int[x, y];
-            for (int i = 0; i < x; i++)
-            {
-                for (int j = 0; j < y; j++)
-                {
-                    result[i, j] = Convert.ToInt32(data[i, j].Re);
+                    int value = Math.Abs(Convert.ToInt32(data[i, j].Re));
+                    result[i, j] = value > 255 ? 255 : value;
                 }
             }
             return result;
@@ -78,33 +74,20 @@ namespace poid.Models
                 {
                     if (j < halfY)
                     {
-                        SwapComplex(data[i, j], data[i + halfX, j + halfY]);
+                        Complex c1 = data[i, j];
+                        Complex c2 = data[i + halfX, j + halfY];
+                        data[i, j] = c2;
+                        data[i + halfX, j + halfY] = c1;
                     }
                     else
                     {
-                        SwapComplex(data[i, j], data[i + halfX, j - halfY]);
+                        Complex c1 = data[i, j];
+                        Complex c2 = data[i + halfX, j - halfY];
+                        data[i, j] = c2;
+                        data[i + halfX, j - halfY] = c1;
                     }
-
                 }
             }
-        }
-
-        public static int[,] GetAmplitudeSpectrum(Complex[,] data)
-        {
-            int x = data.GetLength(0);
-            int y = data.GetLength(1);
-
-            int[,] spectrum = new int[x, y];
-
-            for (int i = 0; i < x; i++)
-            {
-                for (int j = 0; j < y; j++)
-                {
-                    spectrum[i, j] = NormalizeValue(Math.Abs(data[i, j].Re));
-                }
-            }
-
-            return spectrum;
         }
 
         public static int[,] GetPhaseShiftSpectrum(Complex[,] data)
@@ -114,13 +97,13 @@ namespace poid.Models
 
             int[,] spectrum = new int[x, y];
 
-            double shift = GetPhaseShift(data);
-
             for (int i = 0; i < x; i++)
             {
                 for (int j = 0; j < y; j++)
                 {
-                    spectrum[i, j] = NormalizeValue(data[i, j].Im + shift);
+                    double div = data[i, j].Im / data[i, j].Re;
+                    double arcSin = Math.Atan(div);
+                    spectrum[i, j] = Convert.ToInt32(NormalizeValue(arcSin, -Math.PI / 2, Math.PI / 2) * 255);
                 }
             }
 
@@ -131,38 +114,9 @@ namespace poid.Models
 
         #region Helpers
 
-        private static void SwapComplex(Complex c1, Complex c2)
+        private static double NormalizeValue(double x, double min, double max)
         {
-            Complex temp = c1;
-            c1 = c2;
-            c2 = temp;
-        }
-
-        private static void SwapComplexReIm(Complex c)
-        {
-            double temp = c.Re;
-            c.Re = c.Im;
-            c.Im = temp;
-        }
-
-        private static int NormalizeValue(double x)
-        {
-            return Convert.ToInt32(Math.Pow(Math.E, x) / (1 - Math.Pow(Math.E, x)) * 255);
-        }
-
-        private static double GetPhaseShift(Complex[,] data)
-        {
-            for (int i = 0; i < data.GetLength(0); i++)
-            {
-                for (int j = 0; j < data.GetLength(1); j++)
-                {
-                    if (data[i, j].Im < 0)
-                    {
-                        return Math.PI;
-                    }
-                }
-            }
-            return 0;
+            return (x - min) / (max - min);
         }
 
         #endregion

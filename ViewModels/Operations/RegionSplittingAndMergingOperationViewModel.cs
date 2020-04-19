@@ -61,7 +61,7 @@ namespace poid.ViewModels.Operations
                 int merging = int.Parse(this.Merging);
                 if (splitting < 0 || merging < 0 || splitting > 255 || merging > 255)
                 {
-                    throw new ArgumentException("Invalid parameters range!");
+                    throw new ArgumentException("Invalid input value!\nSplitting and merging musts be an ints between 0 and 255.");
                 }
                 List<RegionMask> masks = RegionMask.SplitAndMergeImageRegions(this.WorkspaceViewModel.Input, splitting, merging);
 
@@ -74,9 +74,9 @@ namespace poid.ViewModels.Operations
                     });
                 });
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                Notify.Error("Invalid input value!\nSplitting and merging musts be an ints between 0 and 255.");
+                Notify.Error(e.Message);
             }
         }
 
