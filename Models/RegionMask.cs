@@ -25,7 +25,7 @@ namespace poid.Models
 
         private RegionMask(ImageRegion imageRegion, int width, int height, int maskNumber)
         {
-            this.Pixels = imageRegion.Pixels;
+            this.Pixels = imageRegion.GetPixels();
             this.Width = width;
             this.Height = height;
             this.MaskNumber = maskNumber;
@@ -67,7 +67,7 @@ namespace poid.Models
         public static List<RegionMask> SplitAndMergeImageRegions(Bitmap image, int splitPixelsRange, int mergePixelsRange)
         {
             List<SplittedImageRegion> splittedRegions = SplittedImageRegion.SplitImageRegions(image, splitPixelsRange);
-            List<ImageRegion> imageRegions = ImageRegion.MergeImageRegions(splittedRegions, mergePixelsRange, image.Width, image.Height);
+            List<ImageRegion> imageRegions = ImageRegion.MergeImageRegions(splittedRegions, mergePixelsRange);
             List<RegionMask> regionMasks = new List<RegionMask>();
             for(int i=0; i<imageRegions.Count; i++)
             {
