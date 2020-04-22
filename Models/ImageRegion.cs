@@ -104,7 +104,7 @@ namespace poid.Models
 
         private static bool AreImageRegionsInNeighborhood(SplittedImageRegion ir1, SplittedImageRegion ir2)
         {
-            if ((ir1.X == ir2.X + ir2.Width) || (ir1.X + ir1.Width == ir2.Width))
+            if ((ir1.X == ir2.X + ir2.Width) || (ir1.X + ir1.Width == ir2.X))
             {
                 if((ir1.Y + ir1.Height >= ir2.Y && ir1.Y <= ir2.Y) || (ir1.Y + ir1.Height >= ir2.Y + ir2.Height && ir1.Y <= ir2.Y + ir2.Height))
                 {
