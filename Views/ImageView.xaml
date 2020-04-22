@@ -11,9 +11,14 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="0" HorizontalAlignment="Center" Content="{Binding Title}" FontSize="16" FontWeight="Bold"/>
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" Content="{Binding Title}" FontSize="16" FontWeight="Bold"/>
+        <Button Grid.Row="0" Grid.Column="1" Command="{Binding _SaveOutput}">Save image</Button>
+        <ScrollViewer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
             <Image Source="{Binding Image, Converter={StaticResource BitmapToImageSourceConverter}}" HorizontalAlignment="Left"/>
         </ScrollViewer>
     </Grid>
