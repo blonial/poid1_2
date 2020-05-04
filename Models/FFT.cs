@@ -118,44 +118,31 @@ namespace poid.Models
 
             int[,] spectrum = new int[x, y];
 
-            double min = 255;
-            double max = 0;
-
             for (int i = 0; i < x; i++)
             {
                 for (int j = 0; j < y; j++)
                 {
                     double val = Math.Sqrt(data[i, j].Re * data[i, j].Re + data[i, j].Im * data[i, j].Im);
-                    min = val < min ? val : min;
-                    max = val > max ? val : max;
-                }
-            }
-
-            for (int i = 0; i < x; i++)
-            {
-                for (int j = 0; j < y; j++)
-                {
-                    spectrum[i, j] = NormalizeValueUsingLog(Math.Sqrt(data[i, j].Re * data[i, j].Re + data[i, j].Im * data[i, j].Im), min, max);
+                    spectrum[i, j] = NormalizeValueUsingLog(Math.Sqrt(data[i, j].Re * data[i, j].Re + data[i, j].Im * data[i, j].Im));
                 }
             }
 
             return spectrum;
         }
 
-        private static int NormalizeValueUsingLog(double value, double min, double max)
+        #endregion
+
+        #region Helpers
+
+        private static int NormalizeValueUsingLog(double value)
         {
             double normalizedMin = 0;
             double normalizedMax = 255;
 
-            double logCoeficient = (Math.Log(1 + (value - min), 2) / (Math.Log(1 + (max - min), 2)));
-            int result = (int)(logCoeficient * (normalizedMax - normalizedMin) + normalizedMin);
-
-            return result;
+            double logCoeficient = Math.Log(1 + value, 2);
+            int result = Convert.ToInt32(logCoeficient * (normalizedMax - normalizedMin) + normalizedMin);
+            return result > 255 ? 255 : result;
         }
-
-        #endregion
-
-        #region Helpers
 
         private static double NormalizeValue(double x, double min, double max)
         {
