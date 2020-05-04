@@ -97,6 +97,7 @@ namespace poid.Models
 
             int[,] spectrum = new int[x, y];
 
+
             for (int i = 0; i < x; i++)
             {
                 for (int j = 0; j < y; j++)
@@ -108,6 +109,32 @@ namespace poid.Models
             }
 
             return spectrum;
+        }
+
+        public static int[,] GetAmplitudeSpectrum(Complex[,] data)
+        {
+            int x = data.GetLength(0);
+            int y = data.GetLength(1);
+
+            int[,] spectrum = new int[x, y];
+
+
+            for (int i = 0; i < x; i++)
+            {
+                for (int j = 0; j < y; j++)
+                {
+                    spectrum[i, j] = NormalizeValueUsingLog(Math.Sqrt(data[i, j].Re * data[i, j].Re + data[i, j].Im * data[i, j].Im), 0, 255);
+                }
+            }
+
+            return spectrum;
+        }
+
+        private static int NormalizeValueUsingLog(double value, double min, double max)
+        {
+            double normalizedMin = 0; double normalizedMax = 255;
+
+            double logCoeficient = (Math.Log(1 + (value - min), 2) / (Math.Log(1 + (max - min), 2))); int result = (int)(logCoeficient * (normalizedMax - normalizedMin) + normalizedMin); return result;
         }
 
         #endregion

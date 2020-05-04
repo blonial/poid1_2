@@ -66,6 +66,19 @@ namespace poid.ViewModels.Operations
                     });
                 });
 
+                int[,] redAmplitude = FFT.GetAmplitudeSpectrum(redFourier);
+                int[,] greenAmplitude = FFT.GetAmplitudeSpectrum(greenFourier);
+                int[,] blueAmplitude = FFT.GetAmplitudeSpectrum(blueFourier);
+
+                Task.Run(() =>
+                {
+                    Application.Current.Dispatcher.Invoke(delegate
+                    {
+                        ImageView imageView = new ImageView("Amplitude spectrum", this.GetImageFromChannels(redAmplitude, greenAmplitude, blueAmplitude));
+                        imageView.Show();
+                    });
+                });
+
                 this.ProcessChannel(redFourier);
                 this.ProcessChannel(greenFourier);
                 this.ProcessChannel(blueFourier);
