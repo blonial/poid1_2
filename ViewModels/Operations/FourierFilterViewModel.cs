@@ -83,6 +83,8 @@ namespace poid.ViewModels.Operations
                 this.ProcessChannel(greenFourier);
                 this.ProcessChannel(blueFourier);
 
+                this.DisplayMask(redFourier);
+
                 FFT.ReverseQuarters(redFourier);
                 FFT.ReverseQuarters(greenFourier);
                 FFT.ReverseQuarters(blueFourier);
@@ -138,6 +140,34 @@ namespace poid.ViewModels.Operations
             }
 
             return output;
+        }
+
+        private void DisplayMask(Complex[,] channel)
+        {
+            int width = channel.GetLength(0);
+            int height = channel.GetLength(1);
+
+            Bitmap mask = RegionMask.GetEmptyBitmap(width, height, Color.White);
+
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
+                    if (channel[i, j].Re == 0 && channel[i, j].Im == 0)
+                    {
+                        mask.SetPixel(i, j, Color.Black);
+                    }
+                }
+            }
+
+            Task.Run(() =>
+            {
+                Application.Current.Dispatcher.Invoke(delegate
+                {
+                    ImageView imageView = new ImageView("Mask", mask);
+                    imageView.Show();
+                });
+            });
         }
 
         #endregion

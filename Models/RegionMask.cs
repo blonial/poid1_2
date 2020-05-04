@@ -76,12 +76,12 @@ namespace poid.Models
             return regionMasks;
         }
 
-        private static Bitmap GetBlackBitmap(int width, int height)
+        public static Bitmap GetBlackBitmap(int width, int height)
         {
             return GetEmptyBitmap(width, height, Color.Black);
         }
 
-        private static Bitmap GetEmptyBitmap(int width, int height, Color emptyPixelColor)
+        public static Bitmap GetEmptyBitmap(int width, int height, Color emptyPixelColor)
         {
             Bitmap bitmap = new Bitmap(width, height);
             for (int i = 0; i < width; i++)
